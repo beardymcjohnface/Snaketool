@@ -159,7 +159,7 @@ Customise your launcher!
 @click.group(cls=OrderedCommands)
 def cli():
     """For more options, run:
-    {{cookiecutter.project_name}} command --help"""
+    {{cookiecutter.project_slug}} command --help"""
     pass
 
 
@@ -200,13 +200,13 @@ Copy the system default config file to working directory.
 
 @click.command()
 @click.option('--configfile', default='config.yaml', help='Custom config file', show_default=True)
-def dump_config(configfile, **kwargs):
+def config(configfile, **kwargs):
     """Copy the system default config file"""
     copy_config(configfile)
 
 
 cli.add_command(run)
-cli.add_command(dump_config)
+cli.add_command(config)
 
 
 def main():
