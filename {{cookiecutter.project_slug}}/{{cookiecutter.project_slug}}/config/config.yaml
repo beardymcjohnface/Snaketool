@@ -1,0 +1,2 @@
+input:
+output: '{{cookiecutter.project_slug}}.out'

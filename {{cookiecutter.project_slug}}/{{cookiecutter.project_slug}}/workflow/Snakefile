@@ -1,0 +1,13 @@
+
+
+configfile: os.path.join(workflow.basedir, '../', 'config', 'config.yaml')
+
+outTouch = config['output']
+
+rule all:
+    input:
+        outTouch
+
+rule yeet:
+    output:
+        touch(outTouch)
