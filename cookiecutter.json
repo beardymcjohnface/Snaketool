@@ -7,5 +7,5 @@
   "project_description": "Snakemake-powered commandline tool to do a thing.",
   "version": "0.1.0",
   "conda_frontend": ["mamba","conda"],
-  "license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+  "license": ["MIT license", "BSD license", "ISC License (ISCL)", "Apache Software License", "GNU General Public License v3 (GPLv3)", "Other/Proprietary License"]
 }

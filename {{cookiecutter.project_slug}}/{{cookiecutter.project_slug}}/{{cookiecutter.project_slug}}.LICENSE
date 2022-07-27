@@ -54,7 +54,7 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGEN
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
-{% elif cookiecutter.license == 'ISC license' -%}
+{% elif cookiecutter.license == 'ISC License (ISCL)' -%}
 
 ISC License
 
@@ -64,7 +64,7 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-{% elif cookiecutter.license == 'Apache Software License 2.0' -%}
+{% elif cookiecutter.license == 'Apache Software License' -%}
 
 Apache Software License 2.0
 
@@ -81,7 +81,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-{% elif cookiecutter.open_source_license == 'GNU General Public License v3' -%}
+{% elif cookiecutter.open_source_license == 'GNU General Public License v3 (GPLv3)' -%}
 GNU GENERAL PUBLIC LICENSE
                       Version 3, 29 June 2007
 

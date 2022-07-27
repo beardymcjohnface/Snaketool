@@ -2,7 +2,7 @@
 
 configfile: os.path.join(workflow.basedir, '../', 'config', 'config.yaml')
 
-outTouch = config['output']
+outTouch = os.path.join(config['output'], config['input'])
 
 rule all:
     input:
