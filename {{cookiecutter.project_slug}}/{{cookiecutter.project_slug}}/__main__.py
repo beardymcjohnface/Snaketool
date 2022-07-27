@@ -21,6 +21,12 @@ def snake_base(rel_path):
     return os.path.join(os.path.dirname(__file__), rel_path)
 
 
+def print_version():
+    with open(snake_base('{{cookiecutter.project_slug}}.VERSION'), 'r') as f:
+        version = f.readline()
+    click.echo('{{cookiecutter.project_name}} version ' + version)
+
+
 def msg(err_message):
     tstamp = strftime('[%Y:%m:%d %H:%M:%S] ', localtime())
     click.echo(tstamp + err_message)
@@ -210,6 +216,7 @@ cli.add_command(config)
 
 
 def main():
+    print_version()
     cli()
 
 
