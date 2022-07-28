@@ -73,8 +73,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profile=None, threads=1, use_conda=False,
-                  conda_frontend=None, conda_prefix=None, outdir='{{cookiecutter.project_slug}}.out',
-                  snake_default_args=None, snake_extra=None):
+                  conda_frontend=None, conda_prefix=None, outdir=None, snake_default_args=None, snake_extra=None):
     """Run a Snakefile"""
     snake_command = f'snakemake -s {snakefile_path} '
 
@@ -91,9 +90,12 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
             snake_config.update(merge_config)
 
         # create runtime config file for Snakemake execution
-        runtime_config = os.path.join(outdir, '{{cookiecutter.project_slug}}.config.yaml')
-        if not os.path.exists(os.path.normpath(outdir)):
-            os.makedirs(os.path.normpath(outdir))
+        if outdir:
+            runtime_config = os.path.join(outdir, '{{cookiecutter.project_slug}}.config.yaml')
+            if not os.path.exists(os.path.normpath(outdir)):
+                os.makedirs(os.path.normpath(outdir))
+        else:
+            runtime_config = '{{cookiecutter.project_slug}}.config.yaml'
         write_config(snake_config, runtime_config)
         snake_command = snake_command + f'--configfile {runtime_config} '
 
