@@ -72,9 +72,9 @@ Hopefully you shouldn't need to tweak this function at all.
 - Highly recommend supplying a configfile and the default snakemake args"""
 
 
-def run_snakemake(configfile=None, snakefile_path=None, merge_config={}, profile=None, threads=1, use_conda=False,
+def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profile=None, threads=1, use_conda=False,
                   conda_frontend=None, conda_prefix=None, outdir='{{cookiecutter.project_slug}}.out',
-                  snake_default_args=None, snake_extra=[]):
+                  snake_default_args=None, snake_extra=None):
     """Run a Snakefile"""
     snake_command = f'snakemake -s {snakefile_path} '
 
@@ -170,18 +170,37 @@ def cli():
 
 
 """MAIN SCRIPT
-Add or edit any command line args related to running the main script here.
+Add or edit any command line args related to running the main script here,
+customise the epilog etc.
 """
 
 
-@click.command()
+EPILOG = """
+\b
+RUN EXAMPLES:
+  Required:         {{cookiecutter.project_slug}} run --input [file]
+  Specify threads:  {{cookiecutter.project_slug}} run --threads [threads] ...
+  Run on cluster:   {{cookiecutter.project_slug}} run --profile [profile] ...
+
+\b
+CUSTOMISE SNAKEMAKE:
+  Disable conda:        {{cookiecutter.project_slug}} run --no-use-conda 
+  Change defaults:      {{cookiecutter.project_slug}} run --snake-default="-k --nolock" ...
+  Additional commands:  {{cookiecutter.project_slug}} run --snake=-n --snake=-k ...
+"""
+
+
+@click.command(epilog=EPILOG)
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
 def run(_input, configfile, output, threads, profile, use_conda, conda_frontend, conda_prefix, snake_default,
         snake, **kwargs):
     """Run {{cookiecutter.project_name}}!"""
-    # Config to add/overwrite in configfile
-    merge_config = {'input': _input}
+
+    # Config to add or update in configfile
+    merge_config = {
+        'input': _input,
+        'output': output,}
 
     # run!
     run_snakemake(
