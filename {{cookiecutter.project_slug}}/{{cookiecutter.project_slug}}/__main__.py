@@ -75,7 +75,7 @@ Hopefully you shouldn't need to tweak this function at all.
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profile=None, threads=1, use_conda=False,
                   conda_frontend=None, conda_prefix=None, outdir=None, snake_default_args=None, snake_extra=None):
     """Run a Snakefile"""
-    snake_command = f'snakemake -s {snakefile_path} '
+    snake_command = ['snakemake', '-s', snakefile_path]
 
     # if using a configfile
     if configfile:
@@ -97,36 +97,36 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
         else:
             runtime_config = '{{cookiecutter.project_slug}}.config.yaml'
         write_config(snake_config, runtime_config)
-        snake_command = snake_command + f'--configfile {runtime_config} '
+        snake_command += ['--configfile', runtime_config]
 
         # display the runtime configuration
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
 
     # either use -j [threads] or --profile [profile]
     if profile:
-        snake_command = snake_command + f'--profile {profile} '
+        snake_command += ['--profile', profile]
     else:
-        snake_command = snake_command + f'-j {threads} '
+        snake_command += ['-j', threads]
 
     # add conda args if using conda
     if use_conda:
-        snake_command = snake_command + f'--use-conda '
+        snake_command += '--use-conda'
         if conda_frontend:
-            snake_command = snake_command + f'--conda-frontend {conda_frontend} '
+            snake_command += ['--conda-frontend', conda_frontend]
         if conda_prefix:
-            snake_command = snake_command + f'--conda-prefix {conda_prefix} '
+            snake_command += ['--conda-prefix', conda_prefix]
 
     # add snakemake default args
     if snake_default_args:
-        snake_command = snake_command + ' '.join(s for s in snake_default_args)
+        snake_command += snake_default_args
 
     # add any additional snakemake commands
     if snake_extra:
-        snake_command = snake_command + ' '.join(s for s in snake_extra)
+        snake_command += snake_extra
 
     # Run Snakemake!!!
     msg_box('Snakemake command', errmsg=snake_command)
-    if not subprocess.run(snake_command.split()).returncode == 0:
+    if not subprocess.run(snake_command).returncode == 0:
         msg('Error: Snakemake failed')
         sys.exit(1)
     else:
