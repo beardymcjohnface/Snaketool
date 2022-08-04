@@ -75,7 +75,7 @@ Hopefully you shouldn't need to tweak this function at all.
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profile=None, threads=1, use_conda=False,
                   conda_frontend=None, conda_prefix=None, outdir=None, snake_default_args=None, snake_extra=None):
     """Run a Snakefile"""
-    snake_command = ['snakemake', '-s', snakefile_path]
+    snake_command = ['snakemake', f'-s {snakefile_path}']
 
     # if using a configfile
     if configfile:
@@ -97,24 +97,24 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
         else:
             runtime_config = '{{cookiecutter.project_slug}}.config.yaml'
         write_config(snake_config, runtime_config)
-        snake_command += ['--configfile', runtime_config]
+        snake_command += [f'--configfile {runtime_config}']
 
         # display the runtime configuration
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
 
     # either use -j [threads] or --profile [profile]
     if profile:
-        snake_command += ['--profile', profile]
+        snake_command += [f'--profile {profile}']
     else:
-        snake_command += ['-j', threads]
+        snake_command += [f'-j {threads}']
 
     # add conda args if using conda
     if use_conda:
-        snake_command += '--use-conda'
+        snake_command += ['--use-conda']
         if conda_frontend:
-            snake_command += ['--conda-frontend', conda_frontend]
+            snake_command += [f'--conda-frontend {conda_frontend}']
         if conda_prefix:
-            snake_command += ['--conda-prefix', conda_prefix]
+            snake_command += [f'--conda-prefix {conda_prefix}']
 
     # add snakemake default args
     if snake_default_args:
@@ -127,7 +127,7 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
     # Run Snakemake!!!
     snake_command = list(map(str,snake_command))
     msg_box('Snakemake command', errmsg=' '.join(snake_command))
-    if not subprocess.run(snake_command).returncode == 0:
+    if not subprocess.run(snake_command, shell=True).returncode == 0:
         msg('Error: Snakemake failed')
         sys.exit(1)
     else:
@@ -155,7 +155,7 @@ def common_options(func):
         click.option('--conda-prefix', default=snake_base(os.path.join('workflow', 'conda')),
                      help='Custom conda env directory', type=click.Path(), show_default=False),
         click.option('--snake-default', multiple=True,
-                     default=["--rerun-incomplete", "--printshellcmds", "--nolock", "--show-failed-logs"],
+                     default=['--rerun-incomplete', '--printshellcmds', '--nolock', '--show-failed-logs'],
                      help="Customise Snakemake runtime args", show_default=True),
         click.option('--snake', help='Pass additional Snakemake commands', type=str, multiple=True)
     ]
