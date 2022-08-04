@@ -104,9 +104,9 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
 
     # either use -j [threads] or --profile [profile]
     if profile:
-        snake_command = snake_command + f'--profile {profile}'
+        snake_command = snake_command + f'--profile {profile} '
     else:
-        snake_command = snake_command + f'-j {threads}'
+        snake_command = snake_command + f'-j {threads} '
 
     # add conda args if using conda
     if use_conda:
