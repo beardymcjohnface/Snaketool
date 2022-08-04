@@ -125,7 +125,8 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
         snake_command += snake_extra
 
     # Run Snakemake!!!
-    msg_box('Snakemake command', errmsg=snake_command)
+    snake_command = list(map(str,snake_command))
+    msg_box('Snakemake command', errmsg=' '.join(snake_command))
     if not subprocess.run(snake_command).returncode == 0:
         msg('Error: Snakemake failed')
         sys.exit(1)
