@@ -110,7 +110,11 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
 
     # add conda args if using conda
     if use_conda:
-        snake_command = snake_command + f'--use-conda --conda-frontend {conda_frontend} --conda-prefix {conda_prefix} '
+        snake_command = snake_command + f'--use-conda '
+        if conda_frontend:
+            snake_command = snake_command + f'--conda-frontend {conda_frontend} '
+        if conda_prefix:
+            snake_command = snake_command + f'--conda-prefix {conda_prefix} '
 
     # add snakemake default args
     if snake_default_args:
