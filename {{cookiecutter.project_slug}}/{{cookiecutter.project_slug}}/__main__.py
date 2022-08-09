@@ -198,7 +198,7 @@ CUSTOMISE SNAKEMAKE:
 """
 
 
-@click.command(epilog=EPILOG)
+@click.command(epilog=EPILOG, context_settings={"ignore_unknown_options": True})
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @click.argument('snake_args', nargs=-1)
 @common_options
