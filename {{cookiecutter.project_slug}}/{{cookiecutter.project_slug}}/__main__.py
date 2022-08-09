@@ -18,7 +18,7 @@ You shouldn't need to tweak these much if at all
 
 
 def snake_base(rel_path):
-    return os.path.join(os.path.dirname(__file__), rel_path)
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_path)
 
 
 def print_version():
@@ -102,11 +102,12 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
         # display the runtime configuration
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
 
-    # either use -j [threads] or --profile [profile]
+    # add --profile [profile]
     if profile:
         snake_command += ['--profile', profile]
-    else:
-        snake_command += ['-j', threads]
+
+    # add threads
+    snake_command += ['--cores', threads]
 
     # add conda args if using conda
     if use_conda:
@@ -122,7 +123,7 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
 
     # add any additional snakemake commands
     if snake_extra:
-        snake_command += snake_extra
+        snake_command += list(snake_extra)
 
     # Run Snakemake!!!
     snake_command = ' '.join(str(s) for s in snake_command)
@@ -157,7 +158,6 @@ def common_options(func):
         click.option('--snake-default', multiple=True,
                      default=['--rerun-incomplete', '--printshellcmds', '--nolock', '--show-failed-logs'],
                      help="Customise Snakemake runtime args", show_default=True),
-        click.option('--snake', help='Pass additional Snakemake commands', type=str, multiple=True)
     ]
     for option in reversed(options):
         func = option(func)
@@ -191,17 +191,19 @@ RUN EXAMPLES:
 
 \b
 CUSTOMISE SNAKEMAKE:
-  Disable conda:        {{cookiecutter.project_slug}} run --no-use-conda 
-  Change defaults:      {{cookiecutter.project_slug}} run --snake-default="-k --nolock" ...
-  Additional commands:  {{cookiecutter.project_slug}} run --snake=-n --snake=-k ...
+  Disable conda:            {{cookiecutter.project_slug}} run --no-use-conda 
+  Change defaults:          {{cookiecutter.project_slug}} run --snake-default="-k --nolock" ...
+  Additional commands will 
+  be passed to Snakemake:   {{cookiecutter.project_slug}} run ... --dry-run --keep-going --touch
 """
 
 
 @click.command(epilog=EPILOG)
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
+@click.argument('snake_args', nargs=-1)
 @common_options
 def run(_input, configfile, output, threads, profile, use_conda, conda_frontend, conda_prefix, snake_default,
-        snake, **kwargs):
+        snake_args, **kwargs):
     """Run {{cookiecutter.project_name}}!"""
 
     # Config to add or update in configfile
@@ -216,12 +218,12 @@ def run(_input, configfile, output, threads, profile, use_conda, conda_frontend,
         outdir=output,
         merge_config=merge_config,
         threads=threads,
-        profile=profile,                                                    # If profile is defined, threads is ignored
+        profile=profile,
         use_conda=use_conda,
         conda_frontend=conda_frontend,
         conda_prefix=conda_prefix,
         snake_default_args=snake_default,
-        snake_extra=snake,
+        snake_extra=snake_args,
     )
 
 
