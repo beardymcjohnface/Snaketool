@@ -24,7 +24,7 @@ def snake_base(rel_path):
 def print_version():
     with open(snake_base('{{cookiecutter.project_slug}}.VERSION'), 'r') as f:
         version = f.readline()
-    click.echo('{{cookiecutter.project_name}} version ' + version)
+    click.echo('\n' + '{{cookiecutter.project_name}} version ' + version + '\n')
 
 
 def msg(err_message):
@@ -185,16 +185,16 @@ customise the epilog etc.
 EPILOG = """
 \b
 RUN EXAMPLES:
-  Required:         {{cookiecutter.project_slug}} run --input [file]
-  Specify threads:  {{cookiecutter.project_slug}} run --threads [threads] ...
-  Run on cluster:   {{cookiecutter.project_slug}} run --profile [profile] ...
-
-\b
-CUSTOMISE SNAKEMAKE:
-  Disable conda:            {{cookiecutter.project_slug}} run --no-use-conda 
-  Change defaults:          {{cookiecutter.project_slug}} run --snake-default="-k --nolock" ...
-  Additional commands will 
-  be passed to Snakemake:   {{cookiecutter.project_slug}} run ... --dry-run --keep-going --touch
+  Required:             {{cookiecutter.project_slug}} run --input [file]
+  Specify threads:      {{cookiecutter.project_slug}} run ... --threads [threads]
+  Run on cluster:       {{cookiecutter.project_slug}} run ... --profile [profile]
+  Disable conda:        {{cookiecutter.project_slug}} run ... --no-use-conda 
+  Change defaults:      {{cookiecutter.project_slug}} run ... --snake-default="-k --nolock"
+  Add Snakemake args:   {{cookiecutter.project_slug}} run ... --dry-run --keep-going --touch
+  Specify targets:      {{cookiecutter.project_slug}} run ... all print_targets
+  Available targets:
+        all             Run everything (default)
+        print_targets   List available targets
 """
 
 
@@ -204,8 +204,6 @@ CUSTOMISE SNAKEMAKE:
 @common_options
 def run(_input, configfile, output, threads, profile, use_conda, conda_frontend, conda_prefix, snake_default,
         snake_args, **kwargs):
-    """Run {{cookiecutter.project_name}}!"""
-
     # Config to add or update in configfile
     merge_config = {
         'input': _input,
