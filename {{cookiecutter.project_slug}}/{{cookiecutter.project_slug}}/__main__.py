@@ -204,6 +204,7 @@ RUN EXAMPLES:
 @common_options
 def run(_input, configfile, output, threads, profile, use_conda, conda_frontend, conda_prefix, snake_default,
         snake_args, **kwargs):
+    """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
     merge_config = {
         'input': _input,
