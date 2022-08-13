@@ -30,7 +30,7 @@ tool or fancier pipelines.
 To create a new tool from this template, use Cookiecutter and follow the prompts.
 
 ```shell
-cookiecutter https://github.com/beardymcjohnface/Snaketool-lite.git
+cookiecutter https://github.com/beardymcjohnface/Snaketool.git
 ```
 
 And here's what you get:
