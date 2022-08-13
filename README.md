@@ -1,7 +1,7 @@
 # Snaketool-lite
 Cookiecutter profile for making a Snakemake-based bioinformatics tool, but without the fluff.
 
-__See [Snaketool](https://github.com/beardymcjohnface/Snaketool) for an argparse version with a more detailed Snakemake example.__
+__See [Snaketool-argparse](https://github.com/beardymcjohnface/Snaketool-argparse) for an argparse version with a more detailed Snakemake example.__
 
 ## Motivation
 
@@ -53,6 +53,7 @@ The file `__main__.py` is the entry point.
 Once installed with pip it will be accessible on command line, in this example as `my_snaketool`.
 Customise this file to add your own commandline options, help message etc.
 If you only have one Snakefile you wish to run then this file will need very little customisation.
+If you're happy only using --input and --output you don't have to do anything!
 
 The directories `config/` and `workflow/` contain an example Snakemake pipeline that will work with the example launcher.
 
@@ -72,18 +73,19 @@ For development, cd to your Snaketool directory and install with pip:
 ```shell
 cd snaketool/
 pip install -e .
-my_snaketool -h
+my_snaketool --help
+my_snaketool run --help
 ```
 
 Test run the template:
 
 ```shell
-my_snaketool --input yeet
+my_snaketool run --input yeet
 ```
 
 ## Customising your tool
 
-Check out the [wiki page](https://github.com/beardymcjohnface/Snaketool-lite/wiki) 
+Check out the [wiki page](https://github.com/beardymcjohnface/Snaketool/wiki) 
 for a detailed example on customising your Snaketool.
 
 ## Publishing your tool
