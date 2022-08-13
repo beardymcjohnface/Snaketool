@@ -1,4 +1,4 @@
-# Snaketool-lite
+# Snaketool
 Cookiecutter profile for making a Snakemake-based bioinformatics tool, but without the fluff.
 
 __See [Snaketool-argparse](https://github.com/beardymcjohnface/Snaketool-argparse) for an argparse version with a more detailed Snakemake example.__
