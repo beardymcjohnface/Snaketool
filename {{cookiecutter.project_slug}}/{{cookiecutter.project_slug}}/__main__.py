@@ -72,7 +72,7 @@ Hopefully you shouldn't need to tweak this function at all.
 - Highly recommend supplying a configfile and the default snakemake args"""
 
 
-def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profile=None, threads=1, use_conda=False,
+def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
                   conda_frontend=None, conda_prefix=None, outdir=None, snake_default_args=None, snake_extra=None):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
@@ -101,10 +101,6 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
 
         # display the runtime configuration
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
-
-    # add --profile [profile]
-    if profile:
-        snake_command += ['--profile', profile]
 
     # add threads
     snake_command += ['--cores', threads]
@@ -137,7 +133,8 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, profi
 
 
 """COMMON OPTIONS
-Any click options that will be used in more than one subcommand can be defined here"""
+Any click options that will be used in more than one subcommand can be defined here.
+"""
 
 
 def common_options(func):
@@ -146,8 +143,7 @@ def common_options(func):
         click.option('--output', help='Output directory', type=click.Path(),
                      default='{{cookiecutter.project_slug}}.out', show_default=True),
         click.option('--configfile', default='config.yaml', help='Custom config file', show_default=True),
-        click.option('--threads', help='Number of threads to use', default=8, show_default=True),
-        click.option('--profile', help='Run on cluster with a Snakemake profile', type=str),
+        click.option('--threads', help='Number of threads to use', default=1, show_default=True),
         click.option('--use-conda/--no-use-conda', default=True, help='Use conda for Snakemake rules',
                      show_default=True),
         click.option('--conda-frontend',
@@ -158,6 +154,7 @@ def common_options(func):
         click.option('--snake-default', multiple=True,
                      default=['--rerun-incomplete', '--printshellcmds', '--nolock', '--show-failed-logs'],
                      help="Customise Snakemake runtime args", show_default=True),
+        click.argument('snake_args', nargs=-1)
     ]
     for option in reversed(options):
         func = option(func)
@@ -176,33 +173,36 @@ def cli():
     pass
 
 
-"""MAIN SCRIPT
-Add or edit any command line args related to running the main script here,
-customise the epilog etc.
+"""MAIN SCRIPT run()
+Add or edit any command line args related to running the main script here, customise the epilog etc.
+The only required input is --input which is simple passed to the config.
 """
 
 
 EPILOG = """
 \b
+CLUSTER EXECUTION:
+{{cookiecutter.project_slug}} run ... --profile [profile]
+For information on Snakemake profiles see:
+https://snakemake.readthedocs.io/en/stable/executing/cli.html#profiles
+\b
 RUN EXAMPLES:
-  Required:             {{cookiecutter.project_slug}} run --input [file]
-  Specify threads:      {{cookiecutter.project_slug}} run ... --threads [threads]
-  Run on cluster:       {{cookiecutter.project_slug}} run ... --profile [profile]
-  Disable conda:        {{cookiecutter.project_slug}} run ... --no-use-conda 
-  Change defaults:      {{cookiecutter.project_slug}} run ... --snake-default="-k --nolock"
-  Add Snakemake args:   {{cookiecutter.project_slug}} run ... --dry-run --keep-going --touch
-  Specify targets:      {{cookiecutter.project_slug}} run ... all print_targets
-  Available targets:
-        all             Run everything (default)
-        print_targets   List available targets
+Required:           {{cookiecutter.project_slug}} run --input [file]
+Specify threads:    {{cookiecutter.project_slug}} run ... --threads [threads]
+Disable conda:      {{cookiecutter.project_slug}} run ... --no-use-conda 
+Change defaults:    {{cookiecutter.project_slug}} run ... --snake-default="-k --nolock"
+Add Snakemake args: {{cookiecutter.project_slug}} run ... --dry-run --keep-going --touch
+Specify targets:    {{cookiecutter.project_slug}} run ... all print_targets
+Available targets:
+    all             Run everything (default)
+    print_targets   List available targets
 """
 
 
 @click.command(epilog=EPILOG, context_settings={"ignore_unknown_options": True})
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
-@click.argument('snake_args', nargs=-1)
 @common_options
-def run(_input, configfile, output, threads, profile, use_conda, conda_frontend, conda_prefix, snake_default,
+def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_prefix, snake_default,
         snake_args, **kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
@@ -217,7 +217,6 @@ def run(_input, configfile, output, threads, profile, use_conda, conda_frontend,
         outdir=output,
         merge_config=merge_config,
         threads=threads,
-        profile=profile,
         use_conda=use_conda,
         conda_frontend=conda_frontend,
         conda_prefix=conda_prefix,
@@ -232,7 +231,7 @@ Copy the system default config file to working directory.
 
 
 @click.command()
-@click.option('--configfile', default='config.yaml', help='Custom config file', show_default=True)
+@click.option('--configfile', default='config.yaml', help='Copy template config to file', show_default=True)
 def config(configfile, **kwargs):
     """Copy the system default config file"""
     copy_config(configfile)
