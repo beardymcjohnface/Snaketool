@@ -3,6 +3,8 @@ Cookiecutter profile for making a Snakemake-based bioinformatics tool, but witho
 
 __See [Snaketool-argparse](https://github.com/beardymcjohnface/Snaketool-argparse) for an argparse version with a more detailed Snakemake example.__
 
+__See [Nektool](https://github.com/beardymcjohnface/Nektool) for a NextFlow-based template__
+
 ## Motivation
 
 Writing reliable command line tools requires a lot of boilerplate to ensure input and generated
