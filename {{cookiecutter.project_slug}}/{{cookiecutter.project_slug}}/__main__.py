@@ -73,7 +73,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
-                  conda_frontend=None, conda_prefix=None, outdir=None, snake_default_args=None, snake_extra=None):
+                  conda_frontend=None, conda_prefix=None, snake_default_args=None, snake_extra=None):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
 
@@ -89,15 +89,9 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         if merge_config:
             snake_config.update(merge_config)
 
-        # create runtime config file for Snakemake execution
-        if outdir:
-            runtime_config = os.path.join(outdir, '{{cookiecutter.project_slug}}.config.yaml')
-            if not os.path.exists(os.path.normpath(outdir)):
-                os.makedirs(os.path.normpath(outdir))
-        else:
-            runtime_config = '{{cookiecutter.project_slug}}.config.yaml'
-        write_config(snake_config, runtime_config)
-        snake_command += ['--configfile', runtime_config]
+        # update config file for Snakemake execution
+        write_config(snake_config, configfile)
+        snake_command += ['--configfile', configfile]
 
         # display the runtime configuration
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
@@ -214,7 +208,6 @@ def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_pr
     run_snakemake(
         snakefile_path=snake_base(os.path.join('workflow', 'Snakefile')),   # Full path to Snakefile
         configfile=configfile,
-        outdir=output,
         merge_config=merge_config,
         threads=threads,
         use_conda=use_conda,
