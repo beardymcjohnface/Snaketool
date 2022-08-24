@@ -80,8 +80,9 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         if merge_config:
             snake_config.update(merge_config)
 
-        # update config file for Snakemake execution
-        write_config(snake_config, configfile)
+            # update config file for Snakemake execution
+            write_config(snake_config, configfile)
+
         snake_command += ['--configfile', configfile]
 
         # display the runtime configuration
