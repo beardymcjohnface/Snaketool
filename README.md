@@ -1,14 +1,12 @@
 # Snaketool
 Cookiecutter profile for making a Snakemake-based bioinformatics tool, but without the fluff.
 
-__See [Snaketool-argparse](https://github.com/beardymcjohnface/Snaketool-argparse) for an argparse version with a more detailed Snakemake example.__
-
 __See [Nektool](https://github.com/beardymcjohnface/Nektool) for a NextFlow-based template__
 
 ## Motivation
 
-Writing reliable command line tools requires a lot of boilerplate to ensure input and generated
-files are valid, catch errors with subprocesses, log stderr messages etc. It's very time-consuming and annoying.
+Writing reliable command line tools requires a lot of boilerplate to ensure input and generated files are valid, 
+catch errors with subprocesses, log stderr messages etc. It's very time-consuming and annoying.
 Snakemake does a lot of heavy lifting in this regard and is an obvious alternative to a command line tool.
 
 While Snakemake pipelines are excellent, cloning a pipeline repo every time you want to run an analysis is also annoying.
@@ -25,7 +23,7 @@ Building a Snakemake pipeline with a convenience launcher offers the best of bot
 ## Who is this for?
 
 People who are already familiar with Snakemake and want to create either a Snakemake-powered commandline 
-tool or fancier pipelines.
+tool or make their pipelines fancier and more user-friendly.
 
 ## Usage
 
@@ -44,6 +42,7 @@ my_snaketool/
 │   │   └── config.yaml
 │   ├── __init__.py
 │   ├── __main__.py
+│   ├── util.py
 │   ├── my_snaketool.LICENSE
 │   ├── my_snaketool.VERSION
 │   └── workflow
@@ -62,11 +61,15 @@ The directories `config/` and `workflow/` contain an example Snakemake pipeline 
 ## How the launcher works
 
 The launcher first copies the default config file to the working directory which will allow the user to cusomise their
-config if they wish. The launcher reads in this config file and combines it with command-line arguments to pass on to 
-Snakemake. In this example it only has two options to pass: `--input` and `--output`. The Launcher writes a new config 
-file in the output directory which will be passed to Snakemake. The launcher uses the rest of the command line arguments 
-to launch Snakemake. Most of the command line arguments are boilerplate for running Snakemake and do not require much if
-any customisation.
+config if they wish. The launcher reads in this config file and combines it with command-line arguments. 
+In this example it only has two config-related options to pass: `--input` and `--output`. 
+The Launcher updates the config file with these options before passing it to Snakemake.  
+Most of the other command line arguments are boilerplate for running Snakemake and do not require much if any customisation.
+
+## Customising your tool
+
+Check out the [wiki page](https://github.com/beardymcjohnface/Snaketool/wiki) 
+for a detailed example on customising your Snaketool.
 
 ## Installing and testing your tool
 
@@ -84,11 +87,6 @@ Test run the template:
 ```shell
 my_snaketool run --input yeet
 ```
-
-## Customising your tool
-
-Check out the [wiki page](https://github.com/beardymcjohnface/Snaketool/wiki) 
-for a detailed example on customising your Snaketool.
 
 ## Publishing your tool
 
