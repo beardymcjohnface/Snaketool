@@ -73,19 +73,15 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
 
     # if using a configfile
     if configfile:
-        if not os.path.isfile(configfile):
-            msg(f'ERROR: {configfile} does not exist')
-            sys.exit(1)
-        else:
-            # read the config
-            snake_config = read_config(configfile)
+        # read the config
+        snake_config = read_config(configfile)
 
-            # merge in command line config if provided
-            if merge_config:
-                snake_config.update(merge_config)
+        # merge in command line config if provided
+        if merge_config:
+            snake_config.update(merge_config)
 
-                # update config file for Snakemake execution
-                write_config(snake_config, configfile)
+            # update config file for Snakemake execution
+            write_config(snake_config, configfile)
 
         snake_command += ['--configfile', configfile]
 
