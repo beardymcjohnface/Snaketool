@@ -1,24 +1,14 @@
 """
 Entrypoint for {{cookiecutter.project_name}}
+
+Check out the wiki for a detailed look at customising this file:
+https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 """
 
 import os
 import click
 
 from .util import snake_base, print_version, copy_config, run_snakemake, OrderedCommands
-
-
-"""CUSTOMISE YOUR LAUNCHER!
-Add any extra common command line options to common_options(). 
-These are mostly just boilerplate for running Snakemake.
-
-MAIN SCRIPT run()
-Add or edit any command line args related to running the main script here, customise the epilog etc.
-Currently, the only required input is --input which is simply passed as config to Snakemake.
-
-SUBCOMMAND EXAMPLE config()
-Copy the system default config file to working directory.
-"""
 
 
 def common_options(func):
