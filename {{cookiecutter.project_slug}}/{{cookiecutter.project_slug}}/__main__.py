@@ -82,7 +82,7 @@ def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_pr
     """Run {{cookiecutter.project_name}}"""
 
     # copy default config file if missing
-    copy_config(configfile, system_config=snake_base(os.path.join('..', 'config', 'config.yaml')))
+    copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))
 
     # Config to add or update in configfile
     merge_config = {
@@ -107,7 +107,7 @@ def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_pr
 @click.option('--configfile', default='config.yaml', help='Copy template config to file', show_default=True)
 def config(configfile, **kwargs):
     """Copy the system default config file"""
-    copy_config(configfile, system_config=snake_base(os.path.join('..', 'config', 'config.yaml')))
+    copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))
 
 
 cli.add_command(run)
