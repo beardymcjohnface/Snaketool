@@ -68,8 +68,7 @@ Most of the other command line arguments are boilerplate for running Snakemake a
 
 ## Customising your tool
 
-Check out the [wiki page](https://github.com/beardymcjohnface/Snaketool/wiki) 
-for a detailed example on customising your Snaketool.
+__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool) for a detailed example on customising your Snaketool.__
 
 ## Installing and testing your tool
 
