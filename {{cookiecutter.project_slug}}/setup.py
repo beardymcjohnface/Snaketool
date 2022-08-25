@@ -21,11 +21,10 @@ setup(
  author="{{cookiecutter.full_name}}",
  author_email="{{cookiecutter.email}}",
  py_modules=['{{cookiecutter.project_slug}}'],
- install_requires=['Click>=7', 'snakemake>=6.10.0', 'pyyaml'],
+ install_requires=['Click>=7', 'snakemake>=6.10.0', 'pyyaml>=6'],
  entry_points={
   'console_scripts': [
     '{{cookiecutter.project_slug}}={{cookiecutter.project_slug}}.__main__:main'
   ]},
  include_package_data=True,
- package_data={"{{cookiecutter.project_slug}}": ["Snakefile", "*.yml", "*.smk", "*.py", "*.R"]},
 )

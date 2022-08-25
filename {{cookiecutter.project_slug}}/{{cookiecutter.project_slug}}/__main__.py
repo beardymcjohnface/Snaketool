@@ -44,7 +44,7 @@ def cli():
     pass
 
 
-help_message_extra = """
+help_msg_extra = """
 \b
 CLUSTER EXECUTION:
 {{cookiecutter.project_slug}} run ... --profile [profile]
@@ -64,7 +64,7 @@ Available targets:
 """
 
 
-@click.command(epilog=help_message_extra, context_settings={"ignore_unknown_options": True})
+@click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
 def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_prefix, snake_default,
