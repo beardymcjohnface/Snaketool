@@ -67,7 +67,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
-                  conda_frontend=None, conda_prefix=None, snake_default_args=None, snake_extra=None):
+                  conda_frontend=None, conda_prefix=None, snake_default_args=None, snake_extra=[]):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
 
