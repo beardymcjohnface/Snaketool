@@ -89,7 +89,8 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
 
     # add threads
-    snake_command += ['--cores', threads]
+    if not '--profile' in snake_extra:
+        snake_command += ['--jobs', threads]
 
     # add conda args if using conda
     if use_conda:
