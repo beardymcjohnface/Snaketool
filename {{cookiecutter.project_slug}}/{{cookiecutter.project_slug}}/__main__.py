@@ -8,7 +8,7 @@ https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 import os
 import click
 
-from .util import snake_base, print_version, copy_config, run_snakemake, OrderedCommands
+from .util import snake_base, print_version, copy_config, run_snakemake, OrderedCommands, print_citation
 
 
 def common_options(func):
@@ -22,9 +22,6 @@ def common_options(func):
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
         click.option('--use-conda/--no-use-conda', default=True, help='Use conda for Snakemake rules',
                      show_default=True),
-        click.option('--conda-frontend',
-                     type=click.Choice(['mamba', 'conda'], case_sensitive=True),
-                     default='{{cookiecutter.conda_frontend}}', help='Specify Conda frontend', show_default=True),
         click.option('--conda-prefix', default=snake_base(os.path.join('workflow', 'conda')),
                      help='Custom conda env directory', type=click.Path(), show_default=False),
         click.option('--snake-default', multiple=True,
@@ -67,7 +64,7 @@ Available targets:
 @click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
-def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_prefix, snake_default,
+def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_default,
         snake_args, **kwargs):
     """Run {{cookiecutter.project_name}}"""
 
@@ -86,7 +83,6 @@ def run(_input, configfile, output, threads, use_conda, conda_frontend, conda_pr
         merge_config=merge_config,
         threads=threads,
         use_conda=use_conda,
-        conda_frontend=conda_frontend,
         conda_prefix=conda_prefix,
         snake_default_args=snake_default,
         snake_extra=snake_args,
@@ -100,8 +96,15 @@ def config(configfile, **kwargs):
     copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))
 
 
+@click.command()
+def citation(configfile, **kwargs):
+    """Print the citation(s) for this tool"""
+    print_citation()
+
+
 cli.add_command(run)
 cli.add_command(config)
+cli.add_command(citation)
 
 
 def main():

@@ -27,6 +27,12 @@ def print_version():
     click.echo('\n' + '{{cookiecutter.project_name}} version ' + version + '\n')
 
 
+def print_citation():
+    with open(snake_base('{{cookiecutter.project_slug}}.CITATION'), 'r') as f:
+        for line in f:
+            click.echo(line, nl=False)
+
+
 def msg(err_message):
     tstamp = strftime('[%Y:%m:%d %H:%M:%S] ', localtime())
     click.echo(tstamp + err_message)
@@ -95,8 +101,6 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
     # add conda args if using conda
     if use_conda:
         snake_command += ['--use-conda']
-        if conda_frontend:
-            snake_command += ['--conda-frontend', conda_frontend]
         if conda_prefix:
             snake_command += ['--conda-prefix', conda_prefix]
 
