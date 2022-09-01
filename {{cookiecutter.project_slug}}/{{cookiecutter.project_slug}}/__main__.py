@@ -97,7 +97,7 @@ def config(configfile, **kwargs):
 
 
 @click.command()
-def citation(configfile, **kwargs):
+def citation(**kwargs):
     """Print the citation(s) for this tool"""
     print_citation()
 
