@@ -2,7 +2,7 @@ import os
 from setuptools import setup
 
 def get_version():
-    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workflow', '{{cookiecutter.project_slug}}.VERSION')) as f:
+    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), '{{cookiecutter.project_slug}}', '{{cookiecutter.project_slug}}.VERSION')) as f:
         return f.readline().strip()
 
 CLASSIFIERS = [
