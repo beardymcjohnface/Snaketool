@@ -25,6 +25,12 @@ Building a Snakemake pipeline with a convenience launcher offers the best of bot
 People who are already familiar with Snakemake and want to create either a Snakemake-powered commandline 
 tool or make their pipelines fancier and more user-friendly.
 
+## Citation
+
+This template is currently published as a preprint:
+
+[https://doi.org/10.31219/osf.io/8w5j3](https://doi.org/10.31219/osf.io/8w5j3)
+
 ## Usage
 
 To create a new tool from this template, use Cookiecutter and follow the prompts.
