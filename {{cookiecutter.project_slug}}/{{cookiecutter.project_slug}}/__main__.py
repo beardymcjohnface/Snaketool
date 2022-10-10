@@ -8,7 +8,7 @@ https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 import os
 import click
 
-from .util import snake_base, print_version, copy_config, run_snakemake, OrderedCommands, print_citation
+from .util import snake_base, print_version, resolve_config, copy_config, run_snakemake, OrderedCommands, print_citation
 
 
 def common_options(func):
@@ -18,7 +18,8 @@ def common_options(func):
     options = [
         click.option('--output', help='Output directory', type=click.Path(),
                      default='{{cookiecutter.project_slug}}.out', show_default=True),
-        click.option('--configfile', default='config.yaml', help='Custom config file', show_default=True),
+        click.option('--configfile', default='config.yaml', show_default=False, callback=resolve_config,
+                     help='Custom config file [default: (outputDir)/config.yaml]'),
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
         click.option('--use-conda/--no-use-conda', default=True, help='Use conda for Snakemake rules',
                      show_default=True),

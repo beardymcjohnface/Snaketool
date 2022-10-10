@@ -46,6 +46,12 @@ def msg_box(splash, errmsg=None):
         click.echo('\n' + errmsg, err=True)
 
 
+def resolve_config(ctx, param, value):
+    """Callback for --configfile; place config in output directory unless --configfile specified"""
+    if param.default == value:
+        return os.path.join(ctx.params['output'], value)
+
+
 def copy_config(local_config, system_config=None):
     if not os.path.isfile(local_config):
         msg(f'Copying system default config to {local_config}')
