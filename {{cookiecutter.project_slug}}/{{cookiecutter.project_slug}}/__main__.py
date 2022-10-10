@@ -16,10 +16,11 @@ def common_options(func):
     Define common command line args here, and include them with the @common_options decorator below.
     """
     options = [
-        click.option('--output', help='Output directory', type=click.Path(),
+        click.option('--output', help='Output directory', type=click.Path(dir_okay=True, writable=True, readable=True),
                      default='{{cookiecutter.project_slug}}.out', show_default=True),
         click.option('--configfile', default='config.yaml', show_default=False, callback=resolve_config,
-                     help='Custom config file [default: (outputDir)/config.yaml]'),
+                     help='Custom config file [default: (outputDir)/config.yaml]',
+                     type=click.Path(writable=True, readable=True)),
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
         click.option('--use-conda/--no-use-conda', default=True, help='Use conda for Snakemake rules',
                      show_default=True),
