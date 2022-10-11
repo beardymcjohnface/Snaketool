@@ -92,6 +92,8 @@ def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_defa
 @click.command()
 @click.option('--configfile', default='config.yaml', show_default=False, callback=default_to_ouput,
              help='Custom config file [default: (outputDir)/config.yaml]')
+@click.option('--output', help='Output directory', type=click.Path(dir_okay=True, writable=True, readable=True),
+              default='{{cookiecutter.project_slug}}.out', show_default=True)
 def config(configfile, **kwargs):
     """Copy the system default config file"""
     copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))
