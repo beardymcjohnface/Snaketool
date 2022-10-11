@@ -19,8 +19,7 @@ def common_options(func):
         click.option('--output', help='Output directory', type=click.Path(dir_okay=True, writable=True, readable=True),
                      default='{{cookiecutter.project_slug}}.out', show_default=True),
         click.option('--configfile', default='config.yaml', show_default=False, callback=default_to_ouput,
-                     help='Custom config file [default: (outputDir)/config.yaml]',
-                     type=click.Path(writable=True, readable=True)),
+                     help='Custom config file [default: (outputDir)/config.yaml]'),
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
         click.option('--use-conda/--no-use-conda', default=True, help='Use conda for Snakemake rules',
                      show_default=True),
@@ -29,9 +28,6 @@ def common_options(func):
         click.option('--snake-default', multiple=True,
                      default=['--rerun-incomplete', '--printshellcmds', '--nolock', '--show-failed-logs'],
                      help="Customise Snakemake runtime args", show_default=True),
-        click.option('--snake-dir', default='snakemake', show_default=False, callback=default_to_ouput,
-                     help='Snakemake working directory [default: (outputDir)/snakemake]',
-                     type=click.Path(writable=True, readable=True)),
         click.argument('snake_args', nargs=-1)
     ]
     for option in reversed(options):
@@ -69,8 +65,7 @@ Available targets:
 @click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
-def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_default,
-        snake_args, **kwargs):
+def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_default, snake_args, **kwargs):
     """Run {{cookiecutter.project_name}}"""
 
     # copy default config file if missing
@@ -95,7 +90,8 @@ def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_defa
 
 
 @click.command()
-@click.option('--configfile', default='config.yaml', help='Copy template config to file', show_default=True)
+@click.option('--configfile', default='config.yaml', show_default=False, callback=default_to_ouput,
+             help='Custom config file [default: (outputDir)/config.yaml]')
 def config(configfile, **kwargs):
     """Copy the system default config file"""
     copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))

@@ -82,7 +82,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
-                  conda_prefix=None, snake_default_args=None, snake_dir=None, snake_extra=[]):
+                  conda_prefix=None, snake_default_args=None, snake_extra=[]):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
 
@@ -116,10 +116,6 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
     # add snakemake default args
     if snake_default_args:
         snake_command += snake_default_args
-
-    # add snakemake working directory
-    if snake_dir:
-        snake_command += ['--directory', snake_dir]
 
     # add any additional snakemake commands
     if snake_extra:
