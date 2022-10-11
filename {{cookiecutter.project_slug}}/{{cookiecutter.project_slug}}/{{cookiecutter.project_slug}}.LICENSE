@@ -81,7 +81,9 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-{% elif cookiecutter.open_source_license == 'GNU General Public License v3 (GPLv3)' -%}
+
+{% elif cookiecutter.license == 'GNU General Public License v3 (GPLv3)' -%}
+
 GNU GENERAL PUBLIC LICENSE
                       Version 3, 29 June 2007
 
@@ -114,4 +116,5 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+
 {% endif %}
