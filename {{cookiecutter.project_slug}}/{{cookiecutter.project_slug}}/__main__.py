@@ -35,7 +35,7 @@ def common_options(func):
     return func
 
 
-@click.group(cls=OrderedCommands)
+@click.group(cls=OrderedCommands,context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 def cli():
     """For more options, run:
     {{cookiecutter.project_slug}} command --help"""
@@ -62,7 +62,7 @@ Available targets:
 """
 
 
-@click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
+@click.command(epilog=help_msg_extra)
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
 def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_default, snake_args, **kwargs):
