@@ -46,15 +46,18 @@ def msg_box(splash, errmsg=None):
         click.echo('\n' + errmsg, err=True)
 
 
-def resolve_config(ctx, param, value):
-    """Callback for --configfile; place config in output directory unless --configfile specified"""
+def default_to_ouput(ctx, param, value):
+    """Callback for --configfile and --snake-dir; place value in output directory unless specified"""
     if param.default == value:
         return os.path.join(ctx.params['output'], value)
+    return value
 
 
 def copy_config(local_config, system_config=None):
     if not os.path.isfile(local_config):
         msg(f'Copying system default config to {local_config}')
+        if len(os.path.dirname(local_config)) > 0:
+            os.makedirs(os.path.dirname(local_config), exist_ok=True)
         copyfile(system_config, local_config)
     else:
         msg(f'Config file {local_config} already exists. Using existing config file.')
@@ -79,7 +82,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
-                  conda_prefix=None, snake_default_args=None, snake_extra=[]):
+                  conda_prefix=None, snake_default_args=None, snake_dir=None, snake_extra=[]):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
 
@@ -113,6 +116,10 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
     # add snakemake default args
     if snake_default_args:
         snake_command += snake_default_args
+
+    # add snakemake working directory
+    if snake_dir:
+        snake_command += ['--directory', snake_dir]
 
     # add any additional snakemake commands
     if snake_extra:

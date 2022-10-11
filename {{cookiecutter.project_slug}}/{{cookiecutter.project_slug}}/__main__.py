@@ -8,7 +8,7 @@ https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 import os
 import click
 
-from .util import snake_base, print_version, resolve_config, copy_config, run_snakemake, OrderedCommands, print_citation
+from .util import snake_base, print_version, default_to_ouput, copy_config, run_snakemake, OrderedCommands, print_citation
 
 
 def common_options(func):
@@ -18,7 +18,7 @@ def common_options(func):
     options = [
         click.option('--output', help='Output directory', type=click.Path(dir_okay=True, writable=True, readable=True),
                      default='{{cookiecutter.project_slug}}.out', show_default=True),
-        click.option('--configfile', default='config.yaml', show_default=False, callback=resolve_config,
+        click.option('--configfile', default='config.yaml', show_default=False, callback=default_to_ouput,
                      help='Custom config file [default: (outputDir)/config.yaml]',
                      type=click.Path(writable=True, readable=True)),
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
@@ -29,6 +29,9 @@ def common_options(func):
         click.option('--snake-default', multiple=True,
                      default=['--rerun-incomplete', '--printshellcmds', '--nolock', '--show-failed-logs'],
                      help="Customise Snakemake runtime args", show_default=True),
+        click.option('--snake-dir', default='snakemake', show_default=False, callback=default_to_ouput,
+                     help='Snakemake working directory [default: (outputDir)/snakemake]',
+                     type=click.Path(writable=True, readable=True)),
         click.argument('snake_args', nargs=-1)
     ]
     for option in reversed(options):
