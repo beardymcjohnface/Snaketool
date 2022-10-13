@@ -1,6 +1,13 @@
 
 configfile: os.path.join(workflow.basedir, '../', 'config', 'config.yaml')
 
+# Concatenate Snakemake's own log file with the master log file
+onsuccess:
+    shell("cat {log} >> " + config['log'])
+
+onerror:
+    shell("cat {log} >> " + config['log'])
+
 outTouch = os.path.join(config['output'], config['input'])
 
 # Mark target rules

@@ -24,26 +24,33 @@ def snake_base(rel_path):
 def print_version():
     with open(snake_base('{{cookiecutter.project_slug}}.VERSION'), 'r') as f:
         version = f.readline()
-    click.echo('\n' + '{{cookiecutter.project_name}} version ' + version + '\n', err=True)
+    echo_click('\n' + '{{cookiecutter.project_name}} version ' + version + '\n')
+
+
+def echo_click(msg, log=None):
+    click.echo(msg, nl=False, err=True)
+    if log:
+        with open(log, 'a') as l:
+            l.write(msg)
 
 
 def print_citation():
     with open(snake_base('{{cookiecutter.project_slug}}.CITATION'), 'r') as f:
         for line in f:
-            click.echo(line, nl=False, err=True)
+            echo_click(line)
 
 
-def msg(err_message):
+def msg(err_message, log=None):
     tstamp = strftime('[%Y:%m:%d %H:%M:%S] ', localtime())
-    click.echo(tstamp + err_message, err=True)
+    echo_click(tstamp + err_message + '\n', log=log)
 
 
-def msg_box(splash, errmsg=None):
+def msg_box(splash, errmsg=None, log=None):
     msg('-' * (len(splash) + 4))
     msg(f'| {splash} |')
     msg(('-' * (len(splash) + 4)))
     if errmsg:
-        click.echo('\n' + errmsg, err=True)
+        echo_click('\n' + errmsg + '\n', log=log)
 
 
 def default_to_ouput(ctx, param, value):

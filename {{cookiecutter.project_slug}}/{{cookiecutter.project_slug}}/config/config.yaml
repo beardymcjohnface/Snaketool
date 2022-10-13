@@ -1,3 +1,4 @@
 # Snakemake config
 input:
-output: '{{cookiecutter.project_slug}}.out'
+output: '{{cookiecutter.project_slug}}.out/'
+log: '{{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}.log'

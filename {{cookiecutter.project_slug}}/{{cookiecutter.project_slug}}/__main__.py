@@ -28,6 +28,7 @@ def common_options(func):
         click.option('--snake-default', multiple=True,
                      default=['--rerun-incomplete', '--printshellcmds', '--nolock', '--show-failed-logs'],
                      help="Customise Snakemake runtime args", show_default=True),
+        click.option('--log', default='{{cookiecutter.project_slug}}.log', callback=default_to_ouput, hidden=True),
         click.argument('snake_args', nargs=-1)
     ]
     for option in reversed(options):
@@ -65,12 +66,13 @@ Available targets:
 @click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
-def run(_input, output, **kwargs):
+def run(_input, output, log, **kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
     merge_config = {
         'input': _input,
-        'output': output,}
+        'output': output,
+        'log': log}
 
     # run!
     run_snakemake(
