@@ -47,13 +47,13 @@ def msg_box(splash, errmsg=None):
 
 
 def default_to_ouput(ctx, param, value):
-    """Callback for --configfile and --snake-dir; place value in output directory unless specified"""
+    """Callback for --configfile; place value in output directory unless specified"""
     if param.default == value:
         return os.path.join(ctx.params['output'], value)
     return value
 
 
-def copy_config(local_config, system_config=None):
+def copy_config(local_config, system_config=snake_base(os.path.join('config', 'config.yaml'))):
     if not os.path.isfile(local_config):
         msg(f'Copying system default config to {local_config}')
         if len(os.path.dirname(local_config)) > 0:
@@ -82,12 +82,15 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
-                  conda_prefix=None, snake_default_args=None, snake_extra=[]):
+                  conda_prefix=None, snake_default=None, snake_args=[]):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
 
     # if using a configfile
     if configfile:
+        # copy sys default config if not present
+        copy_config(configfile)
+
         # read the config
         snake_config = read_config(configfile)
 
@@ -104,7 +107,7 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
 
     # add threads
-    if not '--profile' in snake_extra:
+    if not '--profile' in snake_args:
         snake_command += ['--jobs', threads]
 
     # add conda args if using conda
@@ -114,12 +117,12 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
             snake_command += ['--conda-prefix', conda_prefix]
 
     # add snakemake default args
-    if snake_default_args:
-        snake_command += snake_default_args
+    if snake_default:
+        snake_command += snake_default
 
     # add any additional snakemake commands
-    if snake_extra:
-        snake_command += list(snake_extra)
+    if snake_args:
+        snake_command += list(snake_args)
 
     # Run Snakemake!!!
     snake_command = ' '.join(str(s) for s in snake_command)

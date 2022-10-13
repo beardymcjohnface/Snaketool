@@ -65,12 +65,8 @@ Available targets:
 @click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
-def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_default, snake_args, **kwargs):
+def run(_input, output, **kwargs):
     """Run {{cookiecutter.project_name}}"""
-
-    # copy default config file if missing
-    copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))
-
     # Config to add or update in configfile
     merge_config = {
         'input': _input,
@@ -79,21 +75,16 @@ def run(_input, configfile, output, threads, use_conda, conda_prefix, snake_defa
     # run!
     run_snakemake(
         snakefile_path=snake_base(os.path.join('workflow', 'Snakefile')),   # Full path to Snakefile
-        configfile=configfile,
         merge_config=merge_config,
-        threads=threads,
-        use_conda=use_conda,
-        conda_prefix=conda_prefix,
-        snake_default_args=snake_default,
-        snake_extra=snake_args,
+        **kwargs
     )
 
 
 @click.command()
 @common_options
-def config(configfile, output, **kwargs):
+def config(configfile, **kwargs):
     """Copy the system default config file"""
-    copy_config(configfile, system_config=snake_base(os.path.join('config', 'config.yaml')))
+    copy_config(configfile)
 
 
 @click.command()
