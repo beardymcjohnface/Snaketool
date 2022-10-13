@@ -62,9 +62,9 @@ def default_to_ouput(ctx, param, value):
 
 def copy_config(local_config, system_config=snake_base(os.path.join('config', 'config.yaml')), log=None):
     if not os.path.isfile(local_config):
-        msg(f'Copying system default config to {local_config}', log=log)
         if len(os.path.dirname(local_config)) > 0:
             os.makedirs(os.path.dirname(local_config), exist_ok=True)
+        msg(f'Copying system default config to {local_config}', log=log)
         copyfile(system_config, local_config)
     else:
         msg(f'Config file {local_config} already exists. Using existing config file.', log=log)
