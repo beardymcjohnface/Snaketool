@@ -89,7 +89,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threads=1, use_conda=False,
-                  conda_prefix=None, snake_default=None, snake_args=[]):
+                  conda_prefix=None, snake_default=None, snake_args=[], log=None):
     """Run a Snakefile"""
     snake_command = ['snakemake', '-s', snakefile_path]
 
@@ -111,7 +111,7 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         snake_command += ['--configfile', configfile]
 
         # display the runtime configuration
-        msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper))
+        msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper), log=log)
 
     # add threads
     if not '--profile' in snake_args:
@@ -133,10 +133,10 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
 
     # Run Snakemake!!!
     snake_command = ' '.join(str(s) for s in snake_command)
-    msg_box('Snakemake command', errmsg=snake_command)
+    msg_box('Snakemake command', errmsg=snake_command, log=log)
     if not subprocess.run(snake_command, shell=True).returncode == 0:
-        msg('ERROR: Snakemake failed')
+        msg('ERROR: Snakemake failed', log=log)
         sys.exit(1)
     else:
-        msg('Snakemake finished successfully')
+        msg('Snakemake finished successfully', log=log)
     return 0
