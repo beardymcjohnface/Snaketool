@@ -1,0 +1,2 @@
+include {{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}.LICENSE {{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}.CITATION {{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}.VERSION
+recursive-include my_snaketool *

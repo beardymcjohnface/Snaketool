@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 def get_version():
     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), '{{cookiecutter.project_slug}}', '{{cookiecutter.project_slug}}.VERSION')) as f:
@@ -20,7 +20,8 @@ CLASSIFIERS = [
 ]
 
 setup(
- name='{{cookiecutter.project_name}}',
+ name='{{cookiecutter.project_slug}}',
+ packages=find_packages(),
  python_requires='{{cookiecutter.min_python_version}}',
  description="{{cookiecutter.project_description}}",
  version=get_version(),
