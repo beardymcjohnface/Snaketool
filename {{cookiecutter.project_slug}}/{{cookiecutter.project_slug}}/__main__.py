@@ -78,6 +78,7 @@ def run(_input, output, log, **kwargs):
     run_snakemake(
         snakefile_path=snake_base(os.path.join('workflow', 'Snakefile')),   # Full path to Snakefile
         merge_config=merge_config,
+        log=log,
         **kwargs
     )
 

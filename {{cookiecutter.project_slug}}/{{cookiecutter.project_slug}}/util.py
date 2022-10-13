@@ -46,9 +46,9 @@ def msg(err_message, log=None):
 
 
 def msg_box(splash, errmsg=None, log=None):
-    msg('-' * (len(splash) + 4))
-    msg(f'| {splash} |')
-    msg(('-' * (len(splash) + 4)))
+    msg('-' * (len(splash) + 4), log=log)
+    msg(f'| {splash} |', log=log)
+    msg(('-' * (len(splash) + 4)), log=log)
     if errmsg:
         echo_click('\n' + errmsg + '\n', log=log)
 
