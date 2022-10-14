@@ -5,6 +5,7 @@
   "project_name": "My Snaketool",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_description": "Snakemake-powered commandline tool to do a thing.",
+  "project_url": "",
   "project_version": "0.1.0",
   "citation_doi": "",
   "license": ["MIT license", "BSD license", "ISC License (ISCL)", "Apache Software License", "GNU General Public License v3 (GPLv3)", "Other/Proprietary License"],
