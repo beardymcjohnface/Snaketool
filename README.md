@@ -1,5 +1,5 @@
 # Snaketool
-Cookiecutter profile for making a Snakemake-based bioinformatics tool, but without the fluff.
+Cookiecutter profile for making a Snakemake-based bioinformatics tool.
 
 __See [Nektool](https://github.com/beardymcjohnface/Nektool) for a NextFlow-based template__
 
@@ -95,5 +95,4 @@ my_snaketool run --input yeet
 
 ## Publishing your tool
 
-Add your tool to pip and bioconda like you would any other python package.
-Better instructions TBA, watch this space!
+__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Publishing-your-Snaketool) for a detailed look at publishing your tool to PyPI and Conda__
