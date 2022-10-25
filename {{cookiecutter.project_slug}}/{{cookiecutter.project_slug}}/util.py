@@ -60,15 +60,6 @@ def default_to_ouput(ctx, param, value):
     return value
 
 
-def copy_config(local_config, system_config=snake_base(os.path.join('config', 'config.yaml')), log=None):
-    if not os.path.isfile(local_config):
-        if len(os.path.dirname(local_config)) > 0:
-            os.makedirs(os.path.dirname(local_config), exist_ok=True)
-        msg(f'Copying system default config to {local_config}', log=log)
-        copyfile(system_config, local_config)
-    else:
-        msg(f'Config file {local_config} already exists. Using existing config file.', log=log)
-
 
 def read_config(file):
     with open(file, 'r') as stream:
@@ -77,9 +68,39 @@ def read_config(file):
 
 
 def write_config(_config, file, log=None):
-    msg(f'Writing runtime config file to {file}', log=log)
+    msg(f'Writing config file to {file}', log=log)
     with open(file, 'w') as stream:
         yaml.dump(_config, stream)
+
+def update_config(input_config, merge_config, output_config, log=None):
+    """Update config with new values"""
+
+
+    if output_config is None:
+        output_config = input_config
+
+    # read the config
+    config = read_config(configfile)
+
+    # merge additional config values
+    msg('Updating config file with new values', log=log)
+    config.update(merge_config)
+
+    write_config(config, output_config, log=log)
+
+ def copy_config(local_config,merge_config = None, system_config=snake_base(os.path.join('config', 'template_config.yaml')), log=None):
+    if not os.path.isfile(local_config):
+        if len(os.path.dirname(local_config)) > 0:
+            os.makedirs(os.path.dirname(local_config), exist_ok=True)
+        msg(f'Copying system default config to {local_config}', log=log)
+
+        if merge_config:
+            update_config(system_config, merge_config, local_config, log=log)
+        else:
+            copyfile(system_config, local_config)
+    else:
+        msg(f'Config file {local_config} already exists. Using existing config file.', log=log)
+
 
 
 """RUN A SNAKEFILE
@@ -98,15 +119,8 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         # copy sys default config if not present
         copy_config(configfile, log=log)
 
-        # read the config
-        snake_config = read_config(configfile)
-
-        # merge in command line config if provided
         if merge_config:
-            snake_config.update(merge_config)
-
-            # update config file for Snakemake execution
-            write_config(snake_config, configfile, log=log)
+            update_config(configfile, merge_config, log=log)
 
         snake_command += ['--configfile', configfile]
 
