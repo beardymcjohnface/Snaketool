@@ -88,7 +88,7 @@ def update_config(input_config, merge_config, output_config, log=None):
 
     write_config(config, output_config, log=log)
 
- def copy_config(local_config,merge_config = None, system_config=snake_base(os.path.join('config', 'template_config.yaml')), log=None):
+ def copy_config(local_config,merge_config = None, system_config=snake_base(os.path.join('config', 'config.yaml')), log=None):
     if not os.path.isfile(local_config):
         if len(os.path.dirname(local_config)) > 0:
             os.makedirs(os.path.dirname(local_config), exist_ok=True)
