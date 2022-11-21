@@ -72,30 +72,29 @@ def write_config(_config, file, log=None):
     with open(file, 'w') as stream:
         yaml.dump(_config, stream)
 
-def update_config(input_config, merge_config, output_config, log=None):
+def update_config(in_config=None, merge=None, output_config=None, log=None):
     """Update config with new values"""
 
-
     if output_config is None:
-        output_config = input_config
+        output_config = in_config
 
     # read the config
-    config = read_config(configfile)
+    config = read_config(in_config)
 
     # merge additional config values
     msg('Updating config file with new values', log=log)
-    config.update(merge_config)
+    config.update(merge)
 
     write_config(config, output_config, log=log)
 
-def copy_config(local_config,merge_config = None, system_config=snake_base(os.path.join('config', 'config.yaml')), log=None):
+def copy_config(local_config, merge_config=None, system_config=snake_base(os.path.join('config', 'config.yaml')), log=None):
     if not os.path.isfile(local_config):
         if len(os.path.dirname(local_config)) > 0:
             os.makedirs(os.path.dirname(local_config), exist_ok=True)
         msg(f'Copying system default config to {local_config}', log=log)
 
         if merge_config:
-            update_config(system_config, merge_config, local_config, log=log)
+            update_config(in_config=system_config, merge=merge_config, output_config=local_config, log=log)
         else:
             copyfile(system_config, local_config)
     else:
@@ -120,7 +119,7 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         copy_config(configfile, log=log)
 
         if merge_config:
-            update_config(configfile, merge_config, log=log)
+            update_config(in_config=configfile, merge=merge_config, log=log)
 
         snake_command += ['--configfile', configfile]
 
