@@ -60,7 +60,6 @@ def default_to_ouput(ctx, param, value):
     return value
 
 
-
 def read_config(file):
     with open(file, 'r') as stream:
         _config = yaml.safe_load(stream)
@@ -71,6 +70,7 @@ def write_config(_config, file, log=None):
     msg(f'Writing config file to {file}', log=log)
     with open(file, 'w') as stream:
         yaml.dump(_config, stream)
+
 
 def update_config(in_config=None, merge=None, output_config=None, log=None):
     """Update config with new values"""
@@ -87,6 +87,7 @@ def update_config(in_config=None, merge=None, output_config=None, log=None):
 
     write_config(config, output_config, log=log)
 
+
 def copy_config(local_config, merge_config=None, system_config=snake_base(os.path.join('config', 'config.yaml')), log=None):
     if not os.path.isfile(local_config):
         if len(os.path.dirname(local_config)) > 0:
@@ -99,7 +100,6 @@ def copy_config(local_config, merge_config=None, system_config=snake_base(os.pat
             copyfile(system_config, local_config)
     else:
         msg(f'Config file {local_config} already exists. Using existing config file.', log=log)
-
 
 
 """RUN A SNAKEFILE
@@ -124,6 +124,7 @@ def run_snakemake(configfile=None, snakefile_path=None, merge_config=None, threa
         snake_command += ['--configfile', configfile]
 
         # display the runtime configuration
+        snake_config=read_config(configfile)
         msg_box('Runtime config', errmsg=yaml.dump(snake_config, Dumper=yaml.Dumper), log=log)
 
     # add threads
