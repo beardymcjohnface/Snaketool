@@ -29,9 +29,9 @@ setup(
  author="{{cookiecutter.full_name}}",
  author_email="{{cookiecutter.email}}",
  py_modules=['{{cookiecutter.project_slug}}'],
- install_requires=["snakemake=={{cookiecutter.snakemake_version}}",
-                   "pyyaml=={{cookiecutter.pyyaml_version}}",
-                   "Click=={{cookiecutter.click_version}}"],
+ install_requires=["snakemake{{cookiecutter.snakemake_version}}",
+                   "pyyaml{{cookiecutter.pyyaml_version}}",
+                   "Click{{cookiecutter.click_version}}"],
  entry_points={
   'console_scripts': [
     '{{cookiecutter.project_slug}}={{cookiecutter.project_slug}}.__main__:main'
