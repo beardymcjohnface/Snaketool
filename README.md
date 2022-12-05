@@ -33,7 +33,14 @@ This template is currently published as a preprint:
 
 ## Usage
 
-To create a new tool from this template, use Cookiecutter and follow the prompts.
+Install Cookiecutter if you don't already have it.
+
+```shell
+conda create -n cookiecutter -c conda-forge cookiecutter 
+conda activate cookiecutter
+```
+
+Download the template with Cookiecutter and follow the prompts
 
 ```shell
 cookiecutter https://github.com/beardymcjohnface/Snaketool.git
