@@ -9,7 +9,7 @@
   "project_version": "0.1.0",
   "citation_doi": "",
   "license": ["MIT license", "BSD license", "ISC License (ISCL)", "Apache Software License", "GNU General Public License v3 (GPLv3)", "Other/Proprietary License"],
-  "min_python_version": ">=3.7",
+  "python_version": "3.9",
   "snakemake_version": ">=7.14.0",
   "pyyaml_version": ">=6.0",
   "click_version": ">=8.1.3"

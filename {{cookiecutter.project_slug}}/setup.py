@@ -31,7 +31,7 @@ setup(
     name="{{cookiecutter.project_slug}}",
     packages=find_packages(),
     url="{{cookiecutter.project_url}}",
-    python_requires="{{cookiecutter.min_python_version}}",
+    python_requires="{{cookiecutter.python_version}}",
     description="{{cookiecutter.project_description}}",
     version=get_version(),
     author="{{cookiecutter.full_name}}",
