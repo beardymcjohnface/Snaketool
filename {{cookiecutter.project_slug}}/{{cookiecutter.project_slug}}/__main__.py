@@ -11,7 +11,7 @@ import click
 from .util import (
     snake_base,
     print_version,
-    default_to_ouput,
+    default_to_output,
     copy_config,
     run_snakemake,
     OrderedCommands,
@@ -35,7 +35,7 @@ def common_options(func):
             "--configfile",
             default="config.yaml",
             show_default=False,
-            callback=default_to_ouput,
+            callback=default_to_output,
             help="Custom config file [default: (outputDir)/config.yaml]",
         ),
         click.option(
@@ -69,7 +69,7 @@ def common_options(func):
         click.option(
             "--log",
             default="{{cookiecutter.project_slug}}.log",
-            callback=default_to_ouput,
+            callback=default_to_output,
             hidden=True,
         ),
         click.argument("snake_args", nargs=-1),
