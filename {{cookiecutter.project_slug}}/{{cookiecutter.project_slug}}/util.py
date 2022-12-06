@@ -54,7 +54,7 @@ def msg_box(splash, errmsg=None, log=None):
         echo_click("\n" + errmsg + "\n", log=log)
 
 
-def default_to_ouput(ctx, param, value):
+def default_to_output(ctx, param, value):
     """Callback for --configfile; place value in output directory unless specified"""
     if param.default == value:
         return os.path.join(ctx.params["output"], value)
