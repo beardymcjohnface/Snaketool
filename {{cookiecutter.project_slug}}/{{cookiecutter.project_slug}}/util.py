@@ -28,6 +28,12 @@ def print_version():
     echo_click("\n" + "{{cookiecutter.project_name}} version " + version + "\n")
 
 
+def get_version():
+    with open(snake_base("{{cookiecutter.project_slug}}.VERSION"), "r") as f:
+        version = f.readline()
+    return version
+
+
 def echo_click(msg, log=None):
     click.echo(msg, nl=False, err=True)
     if log:

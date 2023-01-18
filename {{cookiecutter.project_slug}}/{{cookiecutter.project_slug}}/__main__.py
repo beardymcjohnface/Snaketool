@@ -11,6 +11,7 @@ import click
 from .util import (
     snake_base,
     print_version,
+    get_version,
     default_to_output,
     copy_config,
     run_snakemake,
@@ -82,6 +83,7 @@ def common_options(func):
 @click.group(
     cls=OrderedCommands, context_settings=dict(help_option_names=["-h", "--help"])
 )
+@click.version_option(get_version(), "-v", "--version", is_flag=True)
 def cli():
     """For more options, run:
     {{cookiecutter.project_slug}} command --help"""
