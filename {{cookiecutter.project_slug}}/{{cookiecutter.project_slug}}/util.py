@@ -22,12 +22,6 @@ def snake_base(rel_path):
     return os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_path)
 
 
-def print_version():
-    with open(snake_base("{{cookiecutter.project_slug}}.VERSION"), "r") as f:
-        version = f.readline()
-    echo_click("\n" + "{{cookiecutter.project_name}} version " + version + "\n")
-
-
 def get_version():
     with open(snake_base("{{cookiecutter.project_slug}}.VERSION"), "r") as f:
         version = f.readline()

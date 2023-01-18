@@ -152,7 +152,6 @@ cli.add_command(citation)
 
 
 def main():
-    print_version()
     cli()
 
 
