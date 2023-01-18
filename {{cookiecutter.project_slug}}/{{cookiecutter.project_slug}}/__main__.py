@@ -10,7 +10,6 @@ import click
 
 from .util import (
     snake_base,
-    print_version,
     get_version,
     default_to_output,
     copy_config,
