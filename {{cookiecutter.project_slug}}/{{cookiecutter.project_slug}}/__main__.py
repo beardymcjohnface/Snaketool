@@ -84,7 +84,8 @@ def common_options(func):
 )
 @click.version_option(get_version(), "-v", "--version", is_flag=True)
 def cli():
-    """For more options, run:
+    """{{cookiecutter.project_description}}. 
+    For more options, run:
     {{cookiecutter.project_slug}} command --help"""
     pass
 
