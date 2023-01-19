@@ -3,7 +3,7 @@ Please cite {{cookiecutter.project_name}} in your paper using this article:
 
 Please consider also citing these dependencies:
 Snaketool:
-https://doi.org/10.31219/osf.io/8w5j3
+https://doi.org/10.1371/journal.pcbi.1010705
 
 Snakemake:
 https://doi.org/10.12688/f1000research.29032.1

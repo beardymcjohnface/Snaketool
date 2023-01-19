@@ -36,7 +36,15 @@ def exec_command(cmnd, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
     return out.decode("utf8") if out is not None else None
 
 
-def test_snaketool(tmp_dir):
+def test_snaketool_cli(tmp_dir):
+    exec_command("my_snaketool -v")
+    exec_command("my_snaketool -h")
+    exec_command("my_snaketool run -h")
+    exec_command("my_snaketool config -h")
+
+
+def test_snaketool_commands(tmp_dir):
     """test Snaketool"""
-    cmd = f"my_snaketool run --input yeet"
-    exec_command(cmd)
+    exec_command("my_snaketool run --input yeet")
+    exec_command("my_snaketool config")
+    exec_command("my_snaketool citation")
