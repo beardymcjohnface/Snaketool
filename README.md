@@ -54,17 +54,19 @@ cookiecutter https://github.com/beardymcjohnface/Snaketool.git
 And here's what you get:
 
 ```text
-my_snaketool/
+├── MANIFEST.in
 ├── my_snaketool
 │   ├── config
 │   │   └── config.yaml
 │   ├── __init__.py
 │   ├── __main__.py
-│   ├── util.py
+│   ├── my_snaketool.CITATION
 │   ├── my_snaketool.LICENSE
 │   ├── my_snaketool.VERSION
+│   ├── util.py
 │   └── workflow
 │       └── Snakefile
+├── README.md
 └── setup.py
 ```
 
