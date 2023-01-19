@@ -41,7 +41,7 @@ jobs:
 
       - name: "Setup Snaketool on ${{ matrix.os }} for Python ${{ matrix.python-version }}"
         run: |
-          cookitcutter --no-input ./
+          cookiecutter --no-input ./
           cd my_snaketool/
           python -m pip install --upgrade pip
           pip install .
