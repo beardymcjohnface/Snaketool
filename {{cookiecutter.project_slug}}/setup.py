@@ -11,6 +11,17 @@ def get_version():
         )
     ) as f:
         return f.readline().strip()
+    
+
+def get_description():
+    with open("README.md", "r") as fh:
+        long_description = fh.read()
+    return long_description
+
+
+def get_data_files():
+    data_files = [(".", ["README.md"])]
+    return data_files
 
 
 CLASSIFIERS = [
@@ -33,9 +44,12 @@ setup(
     url="{{cookiecutter.project_url}}",
     python_requires="{{cookiecutter.min_python_version}}",
     description="{{cookiecutter.project_description}}",
+    long_description=get_description(),
+    long_description_content_type="text/markdown",
     version=get_version(),
     author="{{cookiecutter.full_name}}",
     author_email="{{cookiecutter.email}}",
+    data_files=get_data_files(),
     py_modules=["{{cookiecutter.project_slug}}"],
     install_requires=[
         "snakemake{{cookiecutter.snakemake_version}}",
