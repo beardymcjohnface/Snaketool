@@ -1,6 +1,10 @@
 # Snaketool
 Cookiecutter profile for making a Snakemake-based bioinformatics tool.
 
+[![CI](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![codecov](https://codecov.io/gh/beardymcjohnface/Snaketool/branch/main/graph/badge.svg?token=ZY21OVL1DD)](https://codecov.io/gh/beardymcjohnface/Snaketool)
+
 __See [Nektool](https://github.com/beardymcjohnface/Nektool) for a NextFlow-based template__
 
 ## Motivation
