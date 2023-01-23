@@ -6,8 +6,18 @@ name: CI
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - '.github/**'
+      - 'build/**'
+      - 'tests/**'
+      - '{{cookiecutter.project_slug}}/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - '.github/**'
+      - 'build/**'
+      - 'tests/**'
+      - '{{cookiecutter.project_slug}}/**'
 
 permissions:
   contents: read
