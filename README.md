@@ -1,10 +1,11 @@
 # Snaketool
 
-[![CI](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Generic badge](https://img.shields.io/badge/Citation-10.1371/journal.pcbi.1010705-<COLOR>.svg)](https://doi.org/10.1371/journal.pcbi.1010705)
+![GitHub last commit](https://img.shields.io/github/last-commit/beardymcjohnface/snaketool)
+[![CI](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml)
 
-
-Cookiecutter profile for making a Snakemake-based bioinformatics tool.
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) profile for making a Snakemake-based bioinformatics tool.
 
 __See [Nektool](https://github.com/beardymcjohnface/Nektool) for a NextFlow-based template__
 
