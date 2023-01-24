@@ -68,7 +68,7 @@ def read_config(file):
     return _config
 
 
-def merge_config(config, overwrite_config):
+def recursive_merge_config(config, overwrite_config):
     def _update(d, u):
         for (key, value) in u.items():
             if isinstance(value, collections.abc.Mapping):
@@ -79,20 +79,20 @@ def merge_config(config, overwrite_config):
     _update(config, overwrite_config)
 
 
-def write_config(_config, file, log=None):
-    msg(f"Writing config file to {file}", log=log)
-    with open(file, "w") as stream:
-        yaml.dump(_config, stream)
-
-
 def update_config(in_config=None, merge=None, output_config=None, log=None):
     """Update config with new values"""
     if output_config is None:
         output_config = in_config
     config = read_config(in_config)
     msg("Updating config file with new values", log=log)
-    merge_config(config, merge)
+    recursive_merge_config(config, merge)
     write_config(config, output_config, log=log)
+
+
+def write_config(_config, file, log=None):
+    msg(f"Writing config file to {file}", log=log)
+    with open(file, "w") as stream:
+        yaml.dump(_config, stream)
 
 
 def copy_config(
