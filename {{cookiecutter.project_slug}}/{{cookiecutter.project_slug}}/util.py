@@ -7,6 +7,7 @@ import os
 import subprocess
 import yaml
 import click
+import collections.abc
 from shutil import copyfile
 from time import localtime, strftime
 
@@ -67,6 +68,17 @@ def read_config(file):
     return _config
 
 
+def merge_config(config, overwrite_config):
+    def _update(d, u):
+        for (key, value) in u.items():
+            if isinstance(value, collections.abc.Mapping):
+                d[key] = _update(d.get(key, {}), value)
+            else:
+                d[key] = value
+        return d
+    _update(config, overwrite_config)
+
+
 def write_config(_config, file, log=None):
     msg(f"Writing config file to {file}", log=log)
     with open(file, "w") as stream:
@@ -75,17 +87,11 @@ def write_config(_config, file, log=None):
 
 def update_config(in_config=None, merge=None, output_config=None, log=None):
     """Update config with new values"""
-
     if output_config is None:
         output_config = in_config
-
-    # read the config
     config = read_config(in_config)
-
-    # merge additional config values
     msg("Updating config file with new values", log=log)
-    config.update(merge)
-
+    merge_config(config, merge)
     write_config(config, output_config, log=log)
 
 
