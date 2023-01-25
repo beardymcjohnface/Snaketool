@@ -110,4 +110,4 @@ my_snaketool run --input yeet
 
 ## Publishing your tool
 
-__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Publishing-your-Snaketool) for a detailed look at publishing your tool to PyPI and Conda__
+__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Publishing-your-Snaketool-or-Nektool) for a detailed look at publishing your tool to PyPI and Conda__
