@@ -162,7 +162,7 @@ def run_snakemake(
 
     # add threads
     if not "--profile" in snake_args:
-        snake_command += ["--jobs", threads]
+        snake_command += ["--cores", threads]
 
     # add conda args if using conda
     if use_conda:
