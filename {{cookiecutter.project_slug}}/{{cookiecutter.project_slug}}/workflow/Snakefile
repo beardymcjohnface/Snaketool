@@ -8,7 +8,7 @@ def copy_log_file():
     if not files:
         return None
     current_log = max(files, key=os.path.getmtime)
-    shell("cat " + current_log + " >> " + config.args.log)
+    shell("cat " + current_log + " >> " + config['log'])
 
 onsuccess:
     copy_log_file()
