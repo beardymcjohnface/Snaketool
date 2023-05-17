@@ -1,14 +1,25 @@
 
 configfile: os.path.join(workflow.basedir, '../', 'config', 'config.yaml')
 
+
 # Concatenate Snakemake's own log file with the master log file
+def copy_log_file():
+    files = glob.glob(os.path.join(".snakemake", "log", "*.snakemake.log"))
+    if not files:
+        return None
+    current_log = max(files, key=os.path.getmtime)
+    shell("cat " + current_log + " >> " + config.args.log)
+
 onsuccess:
-    shell("cat {log} >> " + config['log'])
+    copy_log_file()
 
 onerror:
-    shell("cat {log} >> " + config['log'])
+    copy_log_file()
 
+
+# Target file
 outTouch = os.path.join(config['output'], config['input'])
+
 
 # Mark target rules
 target_rules = []
@@ -17,10 +28,12 @@ def targetRule(fn):
     target_rules.append(fn.__name__[2:])
     return fn
 
+
 @targetRule
 rule all:
     input:
         outTouch
+
 
 @targetRule
 rule print_targets:
