@@ -1,3 +1,5 @@
+import glob
+
 
 configfile: os.path.join(workflow.basedir, '../', 'config', 'config.yaml')
 
