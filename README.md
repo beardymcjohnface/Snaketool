@@ -1,8 +1,11 @@
 # Snaketool
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![](https://img.shields.io/static/v1?label=Citation&message=PlosCompBiol&color=blue)](https://doi.org/10.1371/journal.pcbi.1010705)
+[![](https://img.shields.io/static/v1?label=Licence&message=MIT&color=black)](https://opensource.org/license/mit/)
 ![GitHub last commit](https://img.shields.io/github/last-commit/beardymcjohnface/snaketool)
 [![CI](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Snaketool/actions/workflows/python-app.yml)
+
+---
 
 [Cookiecutter](https://github.com/cookiecutter/cookiecutter) profile for making a Snakemake-based bioinformatics tool.
 
@@ -63,7 +66,6 @@ And here's what you get:
 │   ├── my_snaketool.CITATION
 │   ├── my_snaketool.LICENSE
 │   ├── my_snaketool.VERSION
-│   ├── util.py
 │   └── workflow
 │       └── Snakefile
 ├── README.md

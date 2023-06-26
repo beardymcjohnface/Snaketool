@@ -8,15 +8,33 @@ https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 import os
 import click
 
-from .util import (
-    snake_base,
-    get_version,
-    default_to_output,
-    copy_config,
-    run_snakemake,
-    OrderedCommands,
-    print_citation,
-)
+from snaketool_utils.cli_utils import OrderedCommands, run_snakemake, copy_config, echo_click
+
+
+def snake_base(rel_path):
+    """Get the filepath to a Snaketool system file (relative to __main__.py)"""
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_path)
+
+
+def get_version():
+    """Read and print the version from the version file"""
+    with open(snake_base("{{cookiecutter.project_slug}}.VERSION"), "r") as f:
+        version = f.readline()
+    return version
+
+
+def print_citation():
+    """Read and print the Citation information from the citation file"""
+    with open(snake_base("{{cookiecutter.project_slug}}.CITATION"), "r") as f:
+        for line in f:
+            echo_click(line)
+
+
+def default_to_output(ctx, param, value):
+    """Callback for click options; places value in output directory unless specified"""
+    if param.default == value:
+        return os.path.join(ctx.params["output"], value)
+    return value
 
 
 def common_options(func):
@@ -122,12 +140,17 @@ Available targets:
 def run(_input, output, log, **kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
-    merge_config = {"input": _input, "output": output, "log": log}
+    merge_config = {
+        "input": _input,
+        "output": output,
+        "log": log
+    }
 
     # run!
     run_snakemake(
         # Full path to Snakefile
         snakefile_path=snake_base(os.path.join("workflow", "Snakefile")),
+        system_config=snake_base(os.path.join("config", "config.yaml")),
         merge_config=merge_config,
         log=log,
         **kwargs
@@ -138,7 +161,7 @@ def run(_input, output, log, **kwargs):
 @common_options
 def config(configfile, **kwargs):
     """Copy the system default config file"""
-    copy_config(configfile)
+    copy_config(configfile, system_config=snake_base(os.path.join("config", "config.yaml")))
 
 
 @click.command()
