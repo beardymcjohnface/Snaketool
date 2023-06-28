@@ -60,6 +60,12 @@ def common_options(func):
             "--threads", help="Number of threads to use", default=1, show_default=True
         ),
         click.option(
+            "--profile",
+            default=None,
+            help="Snakemake profile to use",
+            show_default=False,
+        ),
+        click.option(
             "--use-conda/--no-use-conda",
             default=True,
             help="Use conda for Snakemake rules",
@@ -137,13 +143,14 @@ Available targets:
 )
 @click.option("--input", "_input", help="Input file/directory", type=str, required=True)
 @common_options
-def run(_input, output, log, **kwargs):
+def run(**kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
     merge_config = {
-        "input": _input,
-        "output": output,
-        "log": log
+        "input": kwargs["_input"],
+        "output": kwargs["output"],
+        "profile": kwargs["profile"],
+        "log": kwargs["log"]
     }
 
     # run!
@@ -152,7 +159,6 @@ def run(_input, output, log, **kwargs):
         snakefile_path=snake_base(os.path.join("workflow", "Snakefile")),
         system_config=snake_base(os.path.join("config", "config.yaml")),
         merge_config=merge_config,
-        log=log,
         **kwargs
     )
 
