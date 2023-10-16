@@ -1,6 +1,6 @@
 rule example:
     output:
-        os.path.join(dirs["result"], "example.done")
+        os.path.join(dirs["results"], "example.done")
     conda:
         os.path.join(dirs["envs"], "example.yaml")
     benchmark:
