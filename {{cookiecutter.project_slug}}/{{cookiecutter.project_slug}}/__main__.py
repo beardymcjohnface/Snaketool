@@ -151,7 +151,9 @@ def run(**kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
     merge_config = {
-        "args": kwargs
+        "{{cookiecutter.project_name}}": {
+            "args": kwargs
+        }
     }
 
     # run!
