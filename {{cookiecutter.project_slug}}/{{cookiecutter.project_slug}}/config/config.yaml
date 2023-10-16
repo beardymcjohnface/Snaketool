@@ -1,5 +1,6 @@
 # Namespaced config file example
 {{cookiecutter.project_slug}}:
-    args:
-        # Command line args will overwrite anything here at runtime
-    # Customisable config here
+    args: # Command line args will be (over)written here at runtime
+        input:
+        output:
+    # Add customisable config here

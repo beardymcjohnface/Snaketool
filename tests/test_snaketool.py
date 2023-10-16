@@ -46,6 +46,6 @@ def test_snaketool_cli(tmp_dir):
 
 def test_snaketool_commands(tmp_dir):
     """test Snaketool"""
-    exec_command("my_snaketool run --input yeet")
+    exec_command("my_snaketool run --input yeet --no-use-conda ")
     exec_command("my_snaketool config")
     exec_command("my_snaketool citation")

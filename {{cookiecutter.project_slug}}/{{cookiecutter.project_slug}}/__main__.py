@@ -151,7 +151,7 @@ def run(**kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
     merge_config = {
-        "{{cookiecutter.project_name}}": {
+        "{{cookiecutter.project_slug}}": {
             "args": kwargs
         }
     }
@@ -167,9 +167,9 @@ def run(**kwargs):
 
 @click.command()
 @common_options
-def config(**kwargs):
+def config(configfile, system_config, **kwargs):
     """Copy the system default config file"""
-    copy_config(kwargs["configfile"])
+    copy_config(configfile, system_config=system_config)
 
 
 @click.command()
