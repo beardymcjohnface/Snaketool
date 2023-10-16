@@ -1,0 +1,2 @@
+{{cookiecutter.project_slug}}:
+    # Config you don't want users to change

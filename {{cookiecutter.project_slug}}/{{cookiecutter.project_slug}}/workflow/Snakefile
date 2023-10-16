@@ -1,40 +1,20 @@
-import glob
+
+# Update default config with runtime config
+configfile: os.path.join(workflow.basedir, "../", "config", "config.yaml")
+configfile: os.path.join(workflow.basedir, "../", "config", "system_config.yaml")
+config.update(config["{{cookiecutter.project_slug}}"]) # convenience if using namespaced config
 
 
-configfile: os.path.join(workflow.basedir, '../', 'config', 'config.yaml')
+# Rules files
+include: os.path.join(workflow.basedir, "rules", "preflight.smk")
+include: os.path.join(workflow.basedir, "rules", "example.smk")
 
 
-# Concatenate Snakemake's own log file with the master log file
-def copy_log_file():
-    files = glob.glob(os.path.join(".snakemake", "log", "*.snakemake.log"))
-    if not files:
-        return None
-    current_log = max(files, key=os.path.getmtime)
-    shell("cat " + current_log + " >> " + config['log'])
-
-onsuccess:
-    copy_log_file()
-
-onerror:
-    copy_log_file()
-
-
-# Target file
-outTouch = os.path.join(config['output'], config['input'])
-
-
-# Mark target rules
-target_rules = []
-def targetRule(fn):
-    assert fn.__name__.startswith('__')
-    target_rules.append(fn.__name__[2:])
-    return fn
-
-
+# Target rules
 @targetRule
 rule all:
     input:
-        outTouch
+        targets
 
 
 @targetRule
@@ -42,8 +22,3 @@ rule print_targets:
     run:
         print("\nTop level rules are: \n", file=sys.stderr)
         print("* " + "\n* ".join(target_rules) + "\n\n", file=sys.stderr)
-
-
-rule yeet:
-    output:
-        touch(outTouch)

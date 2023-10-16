@@ -41,6 +41,7 @@ def test_snaketool_cli(tmp_dir):
     exec_command("my_snaketool -h")
     exec_command("my_snaketool run -h")
     exec_command("my_snaketool config -h")
+    exec_command("my_snaketool --version")
 
 
 def test_snaketool_commands(tmp_dir):
