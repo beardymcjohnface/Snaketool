@@ -1,9 +1,9 @@
 
 # Directories
 dirs = {
-    "logs": os.path.join(config["output"], "logs"),
-    "bench": os.path.join(config["output"], "bench"),
-    "results": os.path.join(config["output"], "results"),
+    "logs": os.path.join(config["args"]["output"], "logs"),
+    "bench": os.path.join(config["args"]["output"], "bench"),
+    "results": os.path.join(config["args"]["output"], "results"),
     "envs": os.path.join(workflow.basedir, "envs"),
     "scripts": os.path.join(workflow.basedir, "scripts")
 }
