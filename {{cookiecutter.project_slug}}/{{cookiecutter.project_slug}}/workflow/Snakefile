@@ -2,6 +2,7 @@
 # Update default config with runtime config
 configfile: os.path.join(workflow.basedir, "../", "config", "config.yaml")
 configfile: os.path.join(workflow.basedir, "../", "config", "system_config.yaml")
+config.update(config["{{cookiecutter.project_slug}}"]) # convenience if using namespaced config
 
 
 # Rules files
