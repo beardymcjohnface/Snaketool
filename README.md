@@ -57,19 +57,29 @@ cookiecutter https://github.com/beardymcjohnface/Snaketool.git
 And here's what you get:
 
 ```text
+my_snaketool/
 ├── MANIFEST.in
 ├── my_snaketool
 │   ├── config
-│   │   └── config.yaml
+│   │   ├── config.yaml
+│   │   └── system_config.yaml
 │   ├── __init__.py
 │   ├── __main__.py
 │   ├── my_snaketool.CITATION
 │   ├── my_snaketool.LICENSE
 │   ├── my_snaketool.VERSION
 │   └── workflow
+│       ├── envs
+│       │   └── example.yaml
+│       ├── rules
+│       │   ├── example.smk
+│       │   └── preflight.smk
+│       ├── scripts
+│       │   └── example.py
 │       └── Snakefile
 ├── README.md
 └── setup.py
+
 ```
 
 The file `__main__.py` is the entry point.
