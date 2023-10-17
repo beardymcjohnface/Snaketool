@@ -1,4 +1,6 @@
-# Snakemake config
-input:
-output: '{{cookiecutter.project_slug}}.out/'
-log: '{{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}.log'
+# Namespaced config file example
+{{cookiecutter.project_slug}}:
+    args: # Command line args will be (over)written here at runtime
+        input:
+        output:
+    # Add customisable config here

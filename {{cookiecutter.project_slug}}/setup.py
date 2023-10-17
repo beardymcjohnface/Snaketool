@@ -52,7 +52,7 @@ setup(
     data_files=get_data_files(),
     py_modules=["{{cookiecutter.project_slug}}"],
     install_requires=[
-        "snaketool-utils>=0.0.2",
+        "snaketool-utils>=0.0.4",
         "snakemake{{cookiecutter.snakemake_version}}",
         "pyyaml{{cookiecutter.pyyaml_version}}",
         "Click{{cookiecutter.click_version}}",
